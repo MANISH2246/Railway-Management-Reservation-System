@@ -1,10 +1,10 @@
 # Railway-Management-Reservation-System
 
-CREATE SCHEMA IF NOT EXISTS railway_system;
+1.CREATE SCHEMA IF NOT EXISTS railway_system;
 show databases;
 use railway_system;
 
-CREATE TABLE IF NOT EXISTS Reservation (
+2.CREATE TABLE IF NOT EXISTS Reservation (
 Train_id int,
 Train_name Text,
 Train_type TEXT,
@@ -27,7 +27,7 @@ Fair int,
 Booking_status TEXT,
 Meal_booked BOOLEAN);
        
-insert into Reservation (Train_id, Train_name, Train_type, Coaches,PNR_no, First_name, Last_name, Contact, Email_id, Booking_id, Booking_date,  Source_station, Destination_station, Seat_alloted, State, City, Duration_minutes, Payment_mode, Fair, Booking_status, Meal_booked)
+3.insert into Reservation (Train_id, Train_name, Train_type, Coaches,PNR_no, First_name, Last_name, Contact, Email_id, Booking_id, Booking_date,  Source_station, Destination_station, Seat_alloted, State, City, Duration_minutes, Payment_mode, Fair, Booking_status, Meal_booked)
 values
     (12490, 'Samparak_Kranti','Express', 25,45327839, 'Sneha', 'Jain', 9876543210, 'sneha@example.com', 6, '2023/09/25', 'Jaipur', 'Delhi', 5, 'Rajasthan', 'Jaipur', 180, 'Online', 640, 'Confirmed', true),
     (11450, 'Varanasi Super', 'Express', 25,47836904, 'Rahul', 'Verma', 8765432109, 'rahul@example.com', 7, '2023/08/21', 'Mumbai', 'Pune', 3, 'Maharashtra', 'Mumbai', 120, 'Online', 750, 'Waiting', false),
@@ -46,12 +46,13 @@ values
     (48231, 'Chambal','Express', 25,45827848, 'Kapil', 'Payak', 8765942461, 'rk51@gmail.com', 5 , '2023/11/03', 'Lucknow', 'Banda', 10, 'UP', 'Lucknow', '620', 'Cash', 1350, 'Confirmed', True);
     
 USE railway_system;
-ALTER TABLE Reservation
+4.ALTER TABLE Reservation
 ADD COLUMN km INT;
-select * from Reservation;
+
+5.select * from Reservation;
 
 -- Update the new column with values for existing rows
-UPDATE Reservation
+6.UPDATE Reservation
 SET km = CASE
     WHEN Train_id = 12490 THEN 840
     WHEN Train_id = 11450 THEN 200
@@ -72,114 +73,114 @@ SET km = CASE
 END;
 
 
-select * from Reservation;
+7.select * from Reservation;
 
 ----Easy Level Queries
 
-SELECT First_name, Last_name 
+8.SELECT First_name, Last_name 
 FROM Reservation;
 
-SELECT DISTINCT Train_type 
+9.SELECT DISTINCT Train_type 
 FROM Reservation;
 
-SELECT COUNT(*) 
+10.SELECT COUNT(*) 
 FROM Reservation;
 
-SELECT   Train_name,First_name,Booking_status 
+11.SELECT   Train_name,First_name,Booking_status 
 FROM Reservation 
 WHERE Booking_status = 'Confirmed' OR Booking_status = 'Waiting';
 
-SELECT First_name,Train_name 
+12.SELECT First_name,Train_name 
 FROM Reservation 
 WHERE Meal_booked = false;
 
-SELECT state, count('Reservation') 
+13.SELECT state, count('Reservation') 
 FROM Reservation
 WHERE state = 'MP' 
 GROUP BY State;
 
-SELECT AVG(Fair) 
+14.SELECT AVG(Fair) 
 FROM Reservation;
 
-SELECT PNR_no,Train_id,Booking_date 
+15.SELECT PNR_no,Train_id,Booking_date 
 FROM Reservation 
 WHERE Booking_date between '2023-08-21' AND '2023-10-08' 
 order by Booking_date;
 
 **Medium Level Queries:**
 
-SELECT Train_name, Sum(fair) AS Reservation_price
+16.SELECT Train_name, Sum(fair) AS Reservation_price
 FROM Reservation
 GROUP BY Train_name
 ORDER BY Reservation_price DESC
 LIMIT 4;
 
-SELECT * FROM Reservation 
+17.SELECT * FROM Reservation 
 WHERE Duration_minutes > 120;
 
-SELECT * 
+18.SELECT * 
 FROM Reservation 
 WHERE Source_station = 'Delhi' AND Destination_station = 'Mumbai';
 
-SELECT AVG(Duration_minutes) 
+19.SELECT AVG(Duration_minutes) 
 FROM Reservation;
 
-SELECT * FROM Reservation 
+20.SELECT * FROM Reservation 
 WHERE Payment_mode = 'Cash';
 
-SELECT Source_station, SUM(Duration_minutes) AS Total_Duration
+21.SELECT Source_station, SUM(Duration_minutes) AS Total_Duration
 FROM Reservation
 GROUP BY Source_station;
 
-SELECT Train_name, First_name, Contact,Coaches
+22.SELECT Train_name, First_name, Contact,Coaches
 FROM Reservation 
 WHERE Train_id IN (SELECT Train_id FROM Reservation WHERE Coaches > 20);
 
-SELECT AVG(Fair) 
+23.SELECT AVG(Fair) 
 FROM Reservation 
 WHERE Booking_status = 'Confirmed';
 
 **High Level Queries:**
 
-SELECT First_name, Last_name, COUNT(*) AS Reservation_Count
+24.SELECT First_name, Last_name, COUNT(*) AS Reservation_Count
 FROM Reservation
 GROUP BY First_name, Last_name
 HAVING COUNT(*) > 1;
 
-SELECT Train_name,Train_id,(km * fair) AS Total_Revenue 
+25.SELECT Train_name,Train_id,(km * fair) AS Total_Revenue 
 FROM Reservation
 ORDER BY Total_Revenue ASC
 LIMIT 4
 OFFSET 3;
 
-SELECT First_name, Last_name
+26.SELECT First_name, Last_name
 FROM Reservation
 GROUP BY First_name, Last_name
 HAVING COUNT(DISTINCT Train_type) > 1;
 
-SELECT Payment_mode
+28.SELECT Payment_mode
 FROM Reservation 
 WHERE Payment_mode LIKE '%h';
 
-SELECT Source_station, Destination_station, COUNT(*) AS Reservation_Count
+29.SELECT Source_station, Destination_station, COUNT(*) AS Reservation_Count
 FROM Reservation
 GROUP BY Source_station, Destination_station;
 
-SELECT Train_type, AVG(Duration_minutes) AS Average_Duration
+30.SELECT Train_type, AVG(Duration_minutes) AS Average_Duration
 FROM Reservation
 GROUP BY Train_type;
 
-SELECT Payment_mode, COUNT(*) AS Payment_Mode_Count
+31.SELECT Payment_mode, COUNT(*) AS Payment_Mode_Count
 FROM Reservation
 GROUP BY Payment_mode
 ORDER BY Payment_Mode_Count DESC
 LIMIT 1;
 
-SELECT MAX(Duration_minutes) AS Max_Duration, km
+32.SELECT MAX(Duration_minutes) AS Max_Duration, km
 FROM Reservation
 GROUP BY km;
 
-SELECT MAX(Duration_minutes) AS Max_Duration, km
+33.SELECT MAX(Duration_minutes) AS Max_Duration, km
 FROM Reservation
 GROUP BY km
 UNION
@@ -187,7 +188,7 @@ SELECT MIN(Duration_minutes) AS Min_Duration, km
 FROM Reservation
 GROUP BY km;
 
-ALTER TABLE Reservation
+34.ALTER TABLE Reservation
 ADD COLUMN Age INT;
 UPDATE Reservation
 SET Age = CASE
@@ -209,9 +210,9 @@ SET Age = CASE
     ELSE 0
 END;
 
-select * from Reservation;
+35.select * from Reservation;
 
-SELECT First_name,Age,
+36.SELECT First_name,Age,
 CASE 
     WHEN Age < 18 THEN '2% discount'
     WHEN Age >= 18 AND Age < 50 THEN 'Both'
@@ -220,54 +221,54 @@ CASE
     FROM Reservation;
     
     
-SELECT First_name,Train_id,Train_name
+37.SELECT First_name,Train_id,Train_name
 FROM Reservation
 WHERE Train_type IN ('Express', 'Superfast','Memu')
 GROUP BY First_name, Train_id, Train_name
 HAVING COUNT(DISTINCT Train_type) = 1;
 
-SELECT SUM(Duration_minutes) AS Total_Duration
+38.SELECT SUM(Duration_minutes) AS Total_Duration
 FROM Reservation;
    
-SELECT Source_station 
+39.SELECT Source_station 
 FROM Reservation
 WHERE Source_station LIKE '_u_';
 
-select Train_name,First_name
+40.select Train_name,First_name
 from Reservation
 where Train_name LIKE "V%T" or First_name LIKE "%a";
 
-SELECT Train_type, 
+49.SELECT Train_type, 
 (SUM(CASE WHEN Booking_status = 'Confirmed' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS Confirmed_Booking_Percentage
 FROM Reservation
 GROUP BY Train_type
 ORDER BY Confirmed_Booking_Percentage DESC;
 
-SELECT Train_id AS Main_id, first_name AS name
+50.SELECT Train_id AS Main_id, first_name AS name
 FROM Reservation;
 
-SELECT Email_id, First_name
+51.SELECT Email_id, First_name
 FROM Reservation
 WHERE Email_id BETWEEN 'f' AND 's';
 
-SELECT age
+52.SELECT age
 FROM Reservation
 WHERE Age = (SELECT MIN(Age) FROM Reservation);
 
-SELECT Fair, km
+53.SELECT Fair, km
 FROM Reservation
 WHERE Fair BETWEEN 200 AND 600;
 
-SELECT Coaches
+54.SELECT Coaches
 FROM Reservation
 WHERE EXISTS (SELECT PNR_no FROM Reservation WHERE Train_id = 42999)
 LIMIT 5;
 
-SELECT Seat_alloted,Train_name,Train_type
+55.SELECT Seat_alloted,Train_name,Train_type
 FROM Reservation
 WHERE Fair = ANY
 (SELECT Fair FROM Reservation WHERE City = 'Delhi');
 
-SELECT  First_name, city,Coaches,Train_name
+56.SELECT  First_name, city,Coaches,Train_name
 FROM Reservation
 WHERE city in ('Delhi','Mumbai','Delhi');
